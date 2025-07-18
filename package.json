@@ -1,7 +1,7 @@
 {
   "name": "auto-mark",
   "version": "1.0.0",
-  "description": "利用 chatgpt 实现自动收藏网站到最佳书签栏的谷歌浏览器插件",
+  "description": "利用 Deepseek 实现自动收藏网站到最佳书签栏的谷歌浏览器插件",
   "type": "module",
   "scripts": {
     "build": "rollup -c"
