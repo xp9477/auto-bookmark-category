@@ -4,8 +4,8 @@ import { MENU_ID, getLocal, setLocal } from './js/utils'
 
 chrome.runtime.onInstalled.addListener(async () => {
   const local = await getLocal()
-  if (!local.chatUrl) local.chatUrl = 'https://api.openai.com/v1/chat/completions'
-  if (!local.model) local.model = 'gpt-3.5-turbo-1106'
+  if (!local.chatUrl) local.chatUrl = 'https://api.deepseek.com/v1/chat/completions'
+  if (!local.model) local.model = 'deepseek-chat'
   await setLocal(local)
   chrome.contextMenus.create({
     id: MENU_ID,
@@ -19,11 +19,11 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   const local = await getLocal()
   let message = ''
   if (!local.chatUrl) {
-    message = '请先设置 chatgpt api 地址！'
+    message = '请先设置 deepseek api 地址！'
   } else if (!local.apiKey) {
-    message = '请先设置 chatgpt api key！'
+    message = '请先设置 deepseek api key！'
   } else if (!local.model) {
-    message = '请先设置 chatgpt model！'
+    message = '请先设置 deepseek model！'
   } else {
     try {
       const { title, url } = tab
@@ -32,7 +32,7 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
       const path = await chat(local, folders.map(i => i.path), title)
       const folder = folders.find(i => i.path === path)
       if (!folder) {
-        message = `书签栏中未发现合适的网站目录，ChatGPT 推荐目录路径为: ${path}`
+        message = `书签栏中未发现合适的网站目录，Deepseek 推荐目录路径为: ${path}`
       } else {
         const id = folder.id
         await chrome.bookmarks.create({
