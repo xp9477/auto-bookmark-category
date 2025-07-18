@@ -71,7 +71,7 @@ function generatePayload(config, folderPaths, title) {
 
 async function parseResponse(response) {
   const json = await response.json();
-  if (json.error) throw new Error(`ChatGPT 调用失败：${json.error.message}`)
+  if (json.error) throw new Error(`Deepseek 调用失败：${json.error.message}`)
   try {
     const fn = json.choices[0].message.tool_calls[0].function;
     const arg = JSON.parse(fn.arguments);
@@ -100,8 +100,8 @@ async function setLocal(local) {
 
 chrome.runtime.onInstalled.addListener(async () => {
   const local = await getLocal();
-  if (!local.chatUrl) local.chatUrl = 'https://api.openai.com/v1/chat/completions';
-  if (!local.model) local.model = 'gpt-3.5-turbo-1106';
+  if (!local.chatUrl) local.chatUrl = 'https://api.deepseek.com/v1/chat/completions';
+  if (!local.model) local.model = 'deepseek-chat';
   await setLocal(local);
   chrome.contextMenus.create({
     id: MENU_ID,
